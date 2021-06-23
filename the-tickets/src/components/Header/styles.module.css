@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+}
+
+.logo {
+  color: #F1F1F1;
+}
+
+.button {
+  background-color: #4C12A1 !important;
+  border: 1px solid #4C12A1 !important;
+}

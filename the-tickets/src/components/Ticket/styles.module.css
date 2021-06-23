@@ -1,0 +1,24 @@
+.card {
+  padding: 0 !important;
+}
+
+.status {
+  background: #CAD1EB;
+  border-radius: 1rem;
+  padding: 0px 10px;
+  align-self: flex-start;
+  width: 50%;
+
+  font-family: 'Roboto';
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+
+  color: #1F1F49;
+}
+
+.bottom {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
