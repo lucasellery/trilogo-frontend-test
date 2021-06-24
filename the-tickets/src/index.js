@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ConfigProvider } from 'antd';
+import store from './store/store';
+import { Provider } from 'react-redux';
 
 import ptBR from 'antd/lib/locale/pt_BR'
 import 'antd/dist/antd.css';
@@ -9,7 +11,9 @@ import 'antd/dist/antd.css';
 ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider locale={ptBR}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
