@@ -1,0 +1,12 @@
+.modal {
+  font-family: "Inter";
+}
+
+.buttonContainer {
+  margin: 0 !important;
+}
+
+.button {
+  background-color: #4C12A1 !important;
+  border: 1px solid #4C12A1 !important;
+}

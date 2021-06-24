@@ -14,9 +14,9 @@ function List({ headerTitle, headerColor }) {
         <div className={styles.header} style={{ background: headerColor }}>
           <Text className={styles.label}>{headerTitle}</Text>
         </div>
-        <div className={styles.cardsContainer}>
+        <ul className={styles.cardsContainer}>
           <Ticket />
-        </div>
+        </ul>
       </Col>
     </div>
   );
