@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import List from '../List'
 
 import { Row, Col, Divider } from 'antd';
 
+import { loadLists } from '../../services/api';
+
+const data = loadLists();
+
 function Board() {
+  const [lists, setLists] = useState(data);
+
   return (
     <div>
       <Row gutter={15} justify="center" align="middle">
-        <List headerTitle="Abertos" headerColor="rgba(245, 34, 45, 0.25)" />
-        <List headerTitle="Executados" headerColor="rgba(212, 102, 45, 0.25)" />
-        <List headerTitle="Vistoriados" headerColor="rgba(82, 196, 26, 0.25)" />
-        <List headerTitle="Arquivados" headerColor="rgba(193, 185, 185, 0.25)" />
+        {lists.map((list, index) => (
+          <List
+            key={list.title}
+            index={index}
+            data={list}
+            headerTitle={list.title}
+            headerColor={list.headerColor}
+          />
+        ))}
       </Row>
     </div>
   );

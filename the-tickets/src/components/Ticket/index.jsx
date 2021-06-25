@@ -11,7 +11,7 @@ import { Card, Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
-function Ticket() {
+function Ticket({ data, index, listIndex }) {
   const [openModal, setOpenModal] = useState(false);
 
   function showModal() {
@@ -32,15 +32,15 @@ function Ticket() {
     <>
       <Card size="small" className={styles.card}>
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={image} alt="" />
+          <img className={styles.img} src={data.image} alt="" />
         </div>
 
-        <p className={styles.status}>Procedimento</p>
-        <p className={styles.number}>6523</p>
-        <p className={styles.description}>Consertar vazamento</p>
+        <p className={styles.status}>{data.type}</p>
+        <p className={styles.number}>{data.id}</p>
+        <p className={styles.description}>{data.description}</p>
 
         <div className={styles.bottom}>
-          <p>Yudi Tamashiro</p>
+          <p>{data.user}</p>
           <Menu 
             triggerSubMenuAction="click"
             expandIcon={<MoreIcon />}
