@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-
 import RegisterTicketModal from '../RegisterTicketModal'
-
 import styles from './styles.module.css';
 import { ReactComponent as LogoTrilogo } from '../../assets/images/logo-trilogo.svg';
 
 import { PlusOutlined } from '@ant-design/icons';
-
 import { Layout, Menu, Breadcrumb, Button } from 'antd';
-
+import { useSelector } from 'react-redux';
+import { selectCreateNewTicket } from '../../store/Tickets/Tickets.selectors';
 const { Header, Content, Footer } = Layout;
 
 function HeaderComp() {
@@ -32,11 +30,14 @@ function HeaderComp() {
     setOpenModal(false);
   }
 
+  const result = useSelector(state => state.tickets)
+
   return (
     <>
       <Layout>
         <Header className={styles.header} style={{ background: '#FFF', height: '80px' }}>
           <LogoTrilogo />
+          <p style={{background: 'red'}}>{(result.description, result.ticketType)}</p>
           <Button
             type="primary"
             icon={<PlusOutlined />}
@@ -52,6 +53,7 @@ function HeaderComp() {
 
       <RegisterTicketModal
         isModalVisible={openModal}
+        handleOk={handleOk}
         handleCancel={handleCancel}
         onChangeType={onChangeType}
         onSubmitNewTicket={onSubmitNewTicket}

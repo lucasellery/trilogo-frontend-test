@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.css';
 
 import {
@@ -12,6 +12,8 @@ import {
 } from 'antd';
 
 import { InboxOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { addTicket } from '../../store/Tickets/Tickets.actions';
 const { Option } = Select;
 
 function RegisterTicketModal({
@@ -23,6 +25,22 @@ function RegisterTicketModal({
   title
 }) {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
+  const [inputDescription, setInputDescription] = useState();
+  const [ticketType, setTicketType] = useState();
+  const [user, setUser] = useState();
+  const [image, setImage] = useState();
+
+  function handleFinish(params) {
+    console.log(params)
+  }
+
+  function createTicket() {
+    dispatch(addTicket(inputDescription, ticketType, user, image))
+    console.log(`Added: ${inputDescription, ticketType, user, image}`)
+    handleOk()
+  }
 
   return (
     <Modal
@@ -36,14 +54,23 @@ function RegisterTicketModal({
       <Form
         layout='vertical'
         form={form}
+        onFinish={handleFinish}
       >
-        <Form.Item label="Descrição">
-          <Input placeholder="Descrição" size="large" />
+        <Form.Item label="Descrição" name={['description']}>
+          <Input
+            onChange={(event) => {
+              setInputDescription(event?.target?.value)
+            }}
+            placeholder="Descrição"
+            size="large"
+          />
         </Form.Item>
-        <Form.Item name="type" label="Tipo" rules={[{ required: true }]}>
+        <Form.Item name={["type"]} label="Tipo" rules={[{ required: true }]}>
           <Select
             placeholder="Tipo"
-            onChange={onChangeType}
+            onChange={(event) => {
+              setTicketType(event?.target?.value)
+            }}
             allowClear
             size="large"
           >
@@ -53,22 +80,31 @@ function RegisterTicketModal({
           </Select>
         </Form.Item>
 
-        <Form.Item name="user" label="Usuário" rules={[{ required: true }]}>
+        <Form.Item name={["user"]} label="Usuário" rules={[{ required: true }]}>
           <Select
             placeholder="Usuário"
-            onChange={onChangeType}
+            onChange={(event) => {
+              setUser(event?.target?.value)
+            }}
             allowClear
             size="large"
           >
-            <Option value={1}>Yudi Tamashiro</Option>
-            <Option value={2}>Priscilla Alcantara</Option>
-            <Option value={3}>Joel Maia</Option>
-            <Option value={4}>Washington Praxedes</Option>
+            <Option value="Yudi Tamashiro">Yudi Tamashiro</Option>
+            <Option value="Priscilla Alcantara">Priscilla Alcantara</Option>
+            <Option value="Joel Maia">Joel Maia</Option>
+            <Option value="Washington Praxedes">Washington Praxedes</Option>
           </Select>
         </Form.Item>
 
         <Form.Item label="Imagem">
-          <Form.Item name="dragImage" valuePropName="image" noStyle>
+          <Form.Item
+            name={["dragImage"]}
+            valuePropName="image"
+            getValueFromEvent={(event) => {
+              setImage(event?.target?.value)
+            }}
+            noStyle
+          >
             <Upload.Dragger name="images" action="/upload.do">
               <p className="ant-upload-drag-icon">
                 <InboxOutlined style={{ color:"#4C12A1" }} />
@@ -90,7 +126,7 @@ function RegisterTicketModal({
             shape="round"
             className={styles.button}
             htmlType="submit"
-            onClick={onSubmitNewTicket}
+            onClick={createTicket}
           >
             Criar ticket
           </Button>
