@@ -30,14 +30,11 @@ function HeaderComp() {
     setOpenModal(false);
   }
 
-  const result = useSelector(state => state.tickets)
-
   return (
     <>
       <Layout>
         <Header className={styles.header} style={{ background: '#FFF', height: '80px' }}>
           <LogoTrilogo />
-          <p style={{background: 'red'}}>{(result.description, result.ticketType)}</p>
           <Button
             type="primary"
             icon={<PlusOutlined />}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
+import { addCard } from '@asseinfo/react-kanban';
+import toBase64 from '../../utils/toBase64'
 
 import {
   Form,
@@ -14,6 +16,9 @@ import {
 import { InboxOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addTicket } from '../../store/Tickets/Tickets.actions';
+import store from '../../store/store';
+
+import { useModalContext } from '../../context/ModalContext'
 const { Option } = Select;
 
 function RegisterTicketModal({
@@ -25,21 +30,38 @@ function RegisterTicketModal({
   title
 }) {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  // const {
+  //   modalContext: {
+  //     open,
+  //     title,
+  //     descriptionInput,
+  //     typeInput,
+  //     userInput,
+  //     image,
+  //     onConfirm,
+  //     onClose,
+  //   }
+  // } = useModalContext();
 
   const [inputDescription, setInputDescription] = useState();
   const [ticketType, setTicketType] = useState();
   const [user, setUser] = useState();
   const [image, setImage] = useState();
 
-  function handleFinish(params) {
-    console.log(params)
-  }
+  function handleSubmit(params) {
+    const { image } = params;
+    const board = JSON.parse(localStorage.getItem('board'))
 
-  function createTicket() {
-    dispatch(addTicket(inputDescription, ticketType, user, image))
-    console.log(`Added: ${inputDescription, ticketType, user, image}`)
-    handleOk()
+    const resultImage = toBase64(image[0])
+    
+    const newBoard = addCard(
+      board,
+      { id: 1 }, {
+      ...params,
+      id: 23,
+    }) 
   }
 
   return (
@@ -54,9 +76,9 @@ function RegisterTicketModal({
       <Form
         layout='vertical'
         form={form}
-        onFinish={handleFinish}
+        onFinish={handleSubmit}
       >
-        <Form.Item label="Descrição" name={['description']}>
+        <Form.Item label="Descrição" name='description'>
           <Input
             onChange={(event) => {
               setInputDescription(event?.target?.value)
@@ -65,7 +87,7 @@ function RegisterTicketModal({
             size="large"
           />
         </Form.Item>
-        <Form.Item name={["type"]} label="Tipo" rules={[{ required: true }]}>
+        <Form.Item name="type" label="Tipo" rules={[{ required: true }]}>
           <Select
             placeholder="Tipo"
             onChange={(event) => {
@@ -126,7 +148,6 @@ function RegisterTicketModal({
             shape="round"
             className={styles.button}
             htmlType="submit"
-            onClick={createTicket}
           >
             Criar ticket
           </Button>
