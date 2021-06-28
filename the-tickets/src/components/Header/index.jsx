@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import RegisterTicketModal from '../RegisterTicketModal'
+import TicketContext from "../../context/TicketContext";
+
 import styles from './styles.module.css';
 import { ReactComponent as LogoTrilogo } from '../../assets/images/logo-trilogo.svg';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Layout, Menu, Breadcrumb, Button } from 'antd';
-import { useSelector } from 'react-redux';
-import { selectCreateNewTicket } from '../../store/Tickets/Tickets.selectors';
+import { Layout, Button } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 function HeaderComp() {
+  const {addTicket} = useContext(TicketContext);
   const [openModal, setOpenModal] = useState(false);
 
   function showModal() {
@@ -28,6 +29,7 @@ function HeaderComp() {
 
   function onSubmitNewTicket() {
     setOpenModal(false);
+    addTicket()
   }
 
   return (

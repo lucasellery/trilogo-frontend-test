@@ -1,26 +1,24 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 
 import styles from "./styles.module.css";
 
 import BoardContext from "../../context/BoardContext";
+import TicketContext from "../../context/TicketContext";
 import RegisterTicketModal from "../RegisterTicketModal";
 
-// import {ReactComponent as MoreIcon} from '../../assets/images/mdi_more_horiz.svg'
 import { EllipsisOutlined } from "@ant-design/icons";
 
-import image from "../../assets/images/picture.png";
-
 import { Card, Menu } from "antd";
-import { useSelector } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 
 const { SubMenu } = Menu;
 
 function Ticket({ data, index, listIndex }) {
-  // const ticketInfo = useSelector(state => state.tickets)
+  const ref = useRef();
   const { move } = useContext(BoardContext);
 
-  const ref = useRef();
+  const [openModal, setOpenModal] = useState(false);
+
   const [{ isDragging }, dragRef] = useDrag({
     type: "CARD",
     item: { index, listIndex },
@@ -60,7 +58,6 @@ function Ticket({ data, index, listIndex }) {
 
   dragRef(dropRef(ref));
 
-  const [openModal, setOpenModal] = useState(false);
 
   function showModal() {
     setOpenModal(true);
@@ -70,17 +67,11 @@ function Ticket({ data, index, listIndex }) {
     setOpenModal(false);
   }
 
-  function onChangeType() {}
-
-  function onSubmitNewTicket() {
-    setOpenModal(false);
-  }
-
   return (
     <div ref={ref} className={isDragging ? styles.isDragging : undefined}>
       <Card size="small" className={styles.card}>
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={data.image} alt="" />
+          <img className={data.image ? styles.img : styles.imgHidden} src={data.image} alt="" />
         </div>
 
         <p className={styles.status}>{data.type}</p>
@@ -89,7 +80,6 @@ function Ticket({ data, index, listIndex }) {
 
         <div className={styles.bottom}>
           <p>{data.user}</p>
-          {/* <p>{ticketInfo}</p> */}
           <Menu
             triggerSubMenuAction="click"
             expandIcon={
@@ -108,8 +98,6 @@ function Ticket({ data, index, listIndex }) {
       <RegisterTicketModal
         isModalVisible={openModal}
         handleCancel={handleCancel}
-        onChangeType={onChangeType}
-        onSubmitNewTicket={onSubmitNewTicket}
         title="Editar ticket"
       />
     </div>

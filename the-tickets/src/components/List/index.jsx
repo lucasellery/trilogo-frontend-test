@@ -7,6 +7,7 @@ import Ticket from '../Ticket';
 
 import { Col, Typography, Layout } from 'antd';
 import BoardContext from '../../context/BoardContext';
+import TicketContext from '../../context/TicketContext';
 
 const { Header } = Layout;
 const { Text } = Typography;
@@ -14,6 +15,7 @@ const { Text } = Typography;
 function List({ headerTitle, headerColor, data , index: listIndex}) {
   const ref = useRef();
   const { move, listHead } = useContext(BoardContext);
+  const { newItem } = useContext(TicketContext);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "COLUMN",

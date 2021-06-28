@@ -9,7 +9,7 @@ export function loadLists() {
           description: 'Consertar vazamento',
           type: 'Predial',
           user: 'Lucas Ellery',
-          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMZaaQC6D-RYF5qj57oO8WW5a7jSfCWPVrEFLGYaN1q2BIAM_WsaN0rKWm6AaDlQwYzA&usqp=CAU'
+          // image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMZaaQC6D-RYF5qj57oO8WW5a7jSfCWPVrEFLGYaN1q2BIAM_WsaN0rKWm6AaDlQwYzA&usqp=CAU'
         },
         {
           id: 2,

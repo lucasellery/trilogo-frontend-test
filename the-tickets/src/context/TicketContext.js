@@ -1,3 +1,8 @@
 import { createContext } from 'react'
 
-export const TicketContext = createContext({});
+export default createContext({
+  addTicket: () =>{},
+  updateTicket: () => {},
+  removeTicket: () => {},
+  newItem: []
+});

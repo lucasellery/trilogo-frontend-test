@@ -23,6 +23,10 @@
   flex: 1;
 }
 
+.imgHidden {
+  display: none;
+}
+
 .status {
   background: #CAD1EB;
   border-radius: 1rem;
@@ -98,14 +102,6 @@
   box-shadow: none;
   cursor: grabbing;
 }
-
-/* .isDragging p {
-  opacity: 0;
-}
-
-.isDragging  img {
-  opacity: 0;
-} */
 
 .isDragging div {
   opacity: 0;

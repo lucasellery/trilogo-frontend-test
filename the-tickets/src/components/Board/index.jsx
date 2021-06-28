@@ -3,7 +3,7 @@ import List from '../List'
 import BoardContext from '../../context/BoardContext';
 import produce from 'immer';
 
-import { Row, Col, Divider } from 'antd';
+import { Row } from 'antd';
 
 import { loadLists } from '../../services/api';
 
